@@ -10,8 +10,8 @@ app.get('/api/forward', async function (req, res) {
         const response = await fetch(url);
         if (!response.ok)
             throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.text();
-        res.send(data);
+        const data = await response.arrayBuffer();
+        res.send(Buffer.from(data));
     } catch (error) {
         console.error(error);
         res.status(500).send(error.message);
