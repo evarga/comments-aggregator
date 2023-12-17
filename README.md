@@ -44,7 +44,7 @@ If the application detects that not all secrets were provided as environment var
 The [article](https://httptoolkit.com/blog/cors-proxies/) about CORS proxying is helpful to understand the overall architecture of this application.
 It also drives attention to many security concerns that must be addressed when using such a technique.
 This application uses an internal CORS server listening at port 8080. The server has a dedicated endpoint
-`/b92` to proxy requests toward the B92 site. Due to modular design, it is easy to add more endpoints for other sites.
+`/api/forward` to proxy GET requests toward any site passed inside the `url` query parameter.
 For each site, you also need a separate module that implements the web scraping logic and extracts comments (see the [b92-comments-extractor.js](src/b92-comments-extractor.js) file).
 
 ## Web Scraping

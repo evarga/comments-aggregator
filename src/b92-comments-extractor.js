@@ -16,8 +16,7 @@ const encoding = "windows-1250";
  */
 export async function getComments(url) {
     try {
-        // We need to chop off the "https://www.b92.net" substring from the URL.
-        const response = await fetch(`http://localhost:8080/b92/${url.substring(20)}`);
+        const response = await fetch(`http://localhost:8080/api/forward?url=${encodeURIComponent(url)}`);
         if (response.ok) {
             const payload = await response.arrayBuffer();
             const decoder = new TextDecoder(encoding);
