@@ -76,7 +76,7 @@ application using the Azure Static Web Apps service. This process expects a set 
 as described below (see also the [devcontainer.json](.devcontainer/devcontainer.json) file).
 
 ## Codespaces 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/evarga/ai-imager)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/evarga/comments-aggregator)
 
 Wait until the container is fully setup; the last step installs dependencies as specified in the package descriptor. The application should be started from the Terminal window by summoning `npm start`.
 
