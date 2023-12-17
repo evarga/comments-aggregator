@@ -48,3 +48,5 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.COMMENTS_AGGREGATOR_DEPLOYMENT_TOKEN }}
           action: "close"
+        env:
+          SKIP_DEPLOY_ON_MISSING_SECRETS: true
