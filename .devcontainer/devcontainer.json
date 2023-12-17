@@ -1,0 +1,24 @@
+{
+	"name": "React Based Web Application",
+	"secrets": {
+		"REACT_APP_OPENAI_API_KEY": {
+			"description": "This is the API key for the OpenAI service."
+		}
+	},
+	  
+    // Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"ms-azuretools.vscode-azurestaticwebapps",
+                "ms-azuretools.vscode-azureresourcegroups",
+				"GitHub.copilot",
+				"GitHub.copilot-chat"
+			]
+		}
+	},
+
+	"postCreateCommand": "npm install"
+}
