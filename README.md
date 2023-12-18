@@ -1,20 +1,16 @@
 # Introduction
 This project is used purely as an educational material to teach and demonstrate in practice the following topics:
 
-- How to cover the full software development lifecycle in a cloud including deployment of the final product.
-- What GitHub offers for achieving the above objective (Git repository, Codespaces, Actions, etc.).
-- The benefits of using an AI pair programming technique with GitHub Copilot.
-- What is a mashup (a.k.a. application hybrid) and ways to leverage myriad of freely available services in a cloud.
 - Basics of the following technologies:
     - React based web application in JavaScript
-    - Azure Static Web Apps service
     - Public OpenAI service to analyze and generate text in any natural language.
-- How to utilize [GitHub Dependabot](https://github.com/skills/secure-repository-supply-chain) to receive notifications and pull requests regarding version updates and vulnerabilities. 
-- How to properly manage secrets in an application.
-- The importance of properly separating UI styles from rest of the application logic.
 - How to utilize batch processing to combat API rate limits.
 - What is web scraping and how to use it to acquire text input.
 - How to overcome the CORS limitations when accessing a third party site.
+- How to utilize [GitHub Dependabot](https://github.com/skills/secure-repository-supply-chain) to receive notifications and pull requests regarding version updates and vulnerabilities. 
+- The benefits of using an AI pair programming technique with GitHub Copilot.
+- How to properly manage secrets in an application.
+- The importance of properly separating UI styles from rest of the application logic.
 
 # Usage
 The user interface is rudimentary to keep things simple. The *Aggregate* button will trigger the collection of comments from the specified URL and their analysis. 
@@ -40,12 +36,47 @@ If the application detects that not all secrets were provided as environment var
 
 > Observe that hitting the *Aggregate* button in succession will produce different responses. This is because the OpenAI service is not deterministic.
 
+## Setup
+To avoid intricacies of deploying and communicating with the CORS proxy server, the application can be run locally.
+The following steps are required:
+
+1. Install [git](https://git-scm.com) and clone the repository.
+2. Install [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm) and use Node version 20.10 or higher.
+3. Inside the root folder of the repository, run `npm install` to install all dependencies.
+4. Set the environment variable REACT_APP_OPENAI_API_KEY to the value of your OpenAI API key.
+5. Run `npm start` to start the application.
+6. Open the browser and navigate to `http://localhost:3000`.
+
+Of course, you can use any other IDE or editor to run and/or further develop the application.
+
 # Architecture
 The [article](https://httptoolkit.com/blog/cors-proxies/) about CORS proxying is helpful to understand the overall architecture of this application.
 It also drives attention to many security concerns that must be addressed when using such a technique.
 This application uses an internal CORS server listening at port 8080. The server has a dedicated endpoint
 `/api/forward` to proxy GET requests toward any site passed inside the `url` query parameter.
 For each site, you also need a separate module that implements the web scraping logic and extracts comments (see the [b92-comments-extractor.js](src/b92-comments-extractor.js) file).
+
+## Testing the Proxy Server
+If you have followed the [setup](#setup) procedure, then the proxy server should run at port 8080. 
+To test it, open a terminal and run the following command:
+```
+curl -I "http://localhost:8080/api/forward?url=https%3A%2F%2Fwww.b92.net%2Fsport%2Fkomentari.php%3Fnav_id%3D2097932"
+```
+The response should look like this:
+```
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-Type: application/octet-stream
+Content-Length: 200052
+ETag: W/"30d74-yeexUc2asriSIN03Zkb+fnXxab8"
+Date: Sun, 17 Dec 2023 23:34:30 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+```
+Observe the response header `Access-Control-Allow-Origin: *`. This is the CORS header that allows any origin to access the resource.
+The `url` query parameter is URL encoded. The value of this parameter is the URL of the B92 article whose comments are to be extracted.
+There are plenty of online tools to URL encode a string. For example, [this one](https://www.urlencoder.org/).
 
 ## Web Scraping
 The B92 site has no API to access it's content. Therefore, a web scraping technique is used to extract the text from the HTML page. The [cheerio](https://cheerio.js.org/) library is used for this purpose.
@@ -68,21 +99,3 @@ each stage would perform a summarization of a subset of comments. Gradually summ
 The final stage would aggregate the results from all previous stages.
 
 > Again, any such scaling technique must be used in accordance with the target site's terms of use! This approach is only mentioned for educational purposes.
-
-# Development
-This application can be further developed and run either using GitHub Codespaces or using a local IDE and pushing
-changes back into the repo. Any change in the `main` branch triggers a GitHub Action to execute a workflow for deploying a new
-application using the Azure Static Web Apps service. This process expects a set of secrets,
-as described below (see also the [devcontainer.json](.devcontainer/devcontainer.json) file).
-
-## Codespaces 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/evarga/comments-aggregator)
-
-Wait until the container is fully setup; the last step installs dependencies as specified in the package descriptor. The application should be started from the Terminal window by summoning `npm start`.
-
-> Codespaces leverages the [development containers](https://containers.dev) open standard as a way to boost containers with development related content and settings.  
-
-## Continuous Deployment
-First, a new Azure static web application resource must be created, using the Azure Portal or CLI, and its deployment token copied. The [GitHub workflow file](https://github.com/evarga/ai-imager/blob/main/.github/workflows/azure-static-web-apps.yml) should serve as a guidance what [repository secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) must be created (see the `env:` section) including the previously mentioned deployment token (see `COMMENTS_AGGREGATOR_DEPLOYMENT_TOKEN`).
-
-Once the above preconditions are met the system is ready to automatically deploy a new version of this application in Azure. This will happen, for example, on every push into this repository.
