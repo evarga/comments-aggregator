@@ -75,6 +75,7 @@ Connection: keep-alive
 Keep-Alive: timeout=5
 ```
 Observe the response header `Access-Control-Allow-Origin: *`. This is the CORS header that allows any origin to access the resource.
+You can read about more sophisticated options in the documentation of the [cors](https://expressjs.com/en/resources/middleware/cors.html) package.
 The `url` query parameter is URL encoded. The value of this parameter is the URL of the B92 article whose comments are to be extracted.
 There are plenty of online tools to URL encode a string. For example, [this one](https://www.urlencoder.org/).
 
