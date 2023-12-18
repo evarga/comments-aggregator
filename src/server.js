@@ -1,6 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 
+let fetch;
+import('node-fetch').then(nodeFetch => {
+    fetch = nodeFetch.default;
+}).catch(err => {
+    console.error('Error loading node-fetch', err);
+});
+
 const app = express();
 app.use(cors());
 

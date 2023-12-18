@@ -9,7 +9,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.1.0-next.14",
-    "text-encoding": "^0.7.0"
+    "text-encoding": "^0.7.0",
+    "node-fetch": "^3.3.2"
   },
   "engines": {
     "npm": "^10.1.0",
