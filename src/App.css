@@ -3,9 +3,9 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  padding: 10px;
-  color: white;
+  background-color: ghostwhite;
+  padding: 1px;
+  color: darkblue;
   font-size: 3em;
   font-weight: bold;
 }
@@ -32,13 +32,13 @@ button {
   font-size: 16px;
   border: none;
   color: white;
-  background-color: #282c34;
+  background-color: darkblue;
   cursor: pointer;
   display: inline-block;
 }
 
 button:hover {
-  background-color: #61dafb;
+  background-color: blue;
 }
 
 #comments-url {
