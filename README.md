@@ -32,7 +32,7 @@ For example, [this article](https://www.b92.net/sport/komentari.php?nav_id=20979
 
 If the application detects that not all secrets were provided as environment variables, then it will simply print a short message at the screen. A new version will need to be deployed having all these secrets specified.
 
-![Screenshot of the UI](./screenshot-ui.jpg)
+<kbd>![Screenshot of the UI](./screenshot-ui.jpg)</kbd>
 
 > Observe that hitting the *Aggregate* button in succession will produce different responses. This is because the OpenAI service is not deterministic.
 
@@ -84,7 +84,7 @@ The B92 site has no API to access it's content. Therefore, a web scraping techni
 To figure out the structure of the HTML page, the _InspectElement_ browser feature was used. The following screenshot shows the HTML structure of the comments section on the B92 site.
 To get this structure, right-click on the page where the element of interest is displayed and select _InspectElement_ (or similar) from the context menu.
 
-![Screenshot of the HTML structure](./html-structure.jpg)
+<kbd>![Screenshot of the HTML structure](./html-structure.jpg)</kbd>
 
 All comments are inside the `div` section with an `id="tab-comments-h-tab"` (denotes the tab that lists comments in chronological order).
 Each comment is inside a list item of the `div` section with a `class="comments"`. One concrete comment is shown inside a green rectangle.
