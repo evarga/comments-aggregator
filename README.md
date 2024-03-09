@@ -1,3 +1,13 @@
+# Table of Contents
+- [Introduction](#introduction)
+- [Usage](#usage)
+  - [Setup](#setup)
+- [Architecture](#architecture)
+  - [Testing the Proxy Server](#testing-the-proxy-server)
+  - [Web Scraping](#web-scraping)
+  - [Scaling the Application to Handle Large Number of Comments](#scaling-the-application-to-handle-large-number-of-comments)
+- [Conclusion](#conclusion)
+
 # Introduction
 This project is used purely as an educational material to teach and demonstrate in practice the following topics:
 
@@ -100,3 +110,6 @@ each stage would perform a summarization of a subset of comments. Gradually summ
 The final stage would aggregate the results from all previous stages.
 
 > Again, any such scaling technique must be used in accordance with the target site's terms of use! This approach is only mentioned for educational purposes.
+
+# Conclusion
+With the help of AI it is possible to craft interesting mashups that were unimaginable not so long time ago. This project showcases the abilities of OpenAI to understand and synthetize text and do language translations on-the-fly. This project also illustrates many technical details that are common in architecting distributed systems, like, the usage of a proxy server.
