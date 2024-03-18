@@ -35,14 +35,14 @@ Nonetheless, even these nicknames are removed before processing data via OpenAI.
 
 It is assumed that the user will enter a URL that points to comments section on this site. 
 Furthermore, to achieve best results, only sports related articles should be used. 
-For example, [this article](https://www.b92.net/sport/komentari.php?nav_id=2097932) is a good candidate. The reason is that such comments are usually short and to the point.
+For example, [this article](https://www.b92.net/sport/svi-komentari/4377) is a good candidate. The reason is that such comments are usually short and to the point.
 
 > In order to avoid hitting the OpenAI API rate limit, the application will make a random sample of 50 comments (if there are more than 50 comments). 
 > These are later grouped into batches of 20 to decrease the number of calls. These parameters are fixed in this educational project, but they can be easily made configurable.
 
 If the application detects that not all secrets were provided as environment variables, then it will simply print a short message at the screen. A new version will need to be deployed having all these secrets specified.
 
-<kbd>![Screenshot of the UI](./screenshot-ui.jpg)</kbd>
+<kbd>![Screenshot of the UI](./docs/screenshot-ui.jpg)</kbd>
 
 > Observe that hitting the *Aggregate* button in succession will produce different responses. This is because the OpenAI service is not deterministic.
 
@@ -69,8 +69,8 @@ For each site, you also need a separate module that implements the web scraping 
 ## Testing the Proxy Server
 If you have followed the [setup](#setup) procedure, then the proxy server should run at port 8080. 
 To test it, open a terminal and run the following command:
-```
-curl -I "http://localhost:8080/api/forward?url=https%3A%2F%2Fwww.b92.net%2Fsport%2Fkomentari.php%3Fnav_id%3D2097932"
+```bash
+curl -I "http://localhost:8080/api/forward?url=https%3A%2F%2Fwww.b92.net%2Fsport%2Fsvi-komentari%2F4377"
 ```
 The response should look like this:
 ```
@@ -78,9 +78,9 @@ HTTP/1.1 200 OK
 X-Powered-By: Express
 Access-Control-Allow-Origin: *
 Content-Type: application/octet-stream
-Content-Length: 200052
-ETag: W/"30d74-yeexUc2asriSIN03Zkb+fnXxab8"
-Date: Sun, 17 Dec 2023 23:34:30 GMT
+Content-Length: 118534
+ETag: W/"1cf06-0OfCU0ak6+2gfKqwR6ccf/Xpowc"
+Date: Mon, 18 Mar 2024 17:21:34 GMT
 Connection: keep-alive
 Keep-Alive: timeout=5
 ```
@@ -91,15 +91,14 @@ There are plenty of online tools to URL encode a string. For example, [this one]
 
 ## Web Scraping
 The B92 site has no API to access it's content. Therefore, a web scraping technique is used to extract the text from the HTML page. The [cheerio](https://cheerio.js.org/) library is used for this purpose.
-To figure out the structure of the HTML page, the _InspectElement_ browser feature was used. The following screenshot shows the HTML structure of the comments section on the B92 site.
+To figure out the structure of the HTML page, the _InspectElement_ browser feature was used; click on the image to watch it enlarged. The following screenshot shows the HTML structure of the comments section on the B92 site.
 To get this structure, right-click on the page where the element of interest is displayed and select _InspectElement_ (or similar) from the context menu.
 
-<kbd>![Screenshot of the HTML structure](./html-structure.jpg)</kbd>
+<kbd>![Screenshot of the HTML structure](./docs/html-structure.jpg)</kbd>
 
-All comments are inside the `div` section with an `id="tab-comments-h-tab"` (denotes the tab that lists comments in chronological order).
-Each comment is inside a list item of the `div` section with a `class="comments"`. One concrete comment is shown inside a green rectangle.
+All comments are inside the `div` section with a `class="news-comments-body"` that contains articles. Each comment is inside a paragraph under the `div` section with a `class="comment-content"`. One concrete comment is shown in expanded form.
 
-Web scraping is a very brittle technique. Any change in the HTML structure of the page will break the scraping logic. One way to remedy this problem is make scraping rules external and configurable. This is not done in this project to keep things simple.
+Web scraping is a very brittle technique. Any change in the HTML structure of the page will break the scraping logic. This has already happened in the past, when B92 decided to completely change it's web site after the first version of this project was published. One way to remedy this problem is make scraping rules external and configurable. This is not done in this project to keep things simple.
 
 > You must ensure that the web scraping logic is not used to extract data from a site that explicitly forbids such a practice. This is usually stated in the site's terms of use.
 
