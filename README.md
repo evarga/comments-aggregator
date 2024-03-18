@@ -90,7 +90,7 @@ The `url` query parameter is URL encoded. The value of this parameter is the URL
 There are plenty of online tools to URL encode a string. For example, [this one](https://www.urlencoder.org/).
 
 ## Web Scraping
-The B92 site has no API to access it's content. Therefore, a web scraping technique is used to extract the text from the HTML page. The [cheerio](https://cheerio.js.org/) library is used for this purpose.
+The B92 site has no API to access it's content. The site itself employs numerous JavScript functions to partially load sections of the site. These essentially call undocumented APIs that return HTML content ready for being presented by a browser. One such function is responsible for comments retrieval, which call the `https://www.b92.net/ajax/get_comments` API endpoint. Nevertheless, a web scraping technique must be used to extract the text from the HTML page. The [cheerio](https://cheerio.js.org/) library is used for this purpose.
 To figure out the structure of the HTML page, the _InspectElement_ browser feature was used; click on the image to watch it enlarged. The following screenshot shows the HTML structure of the comments section on the B92 site.
 To get this structure, right-click on the page where the element of interest is displayed and select _InspectElement_ (or similar) from the context menu.
 
