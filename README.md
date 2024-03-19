@@ -64,7 +64,7 @@ The [article](https://httptoolkit.com/blog/cors-proxies/) about CORS proxying is
 It also drives attention to many security concerns that must be addressed when using such a technique.
 This application uses an internal CORS server listening at port 8080. The server has a dedicated endpoint
 `/api/forward` to proxy GET requests toward any site passed inside the `url` query parameter.
-For each site, you also need a separate module that implements the web scraping logic and extracts comments (see the [b92-comments-extractor.js](src/b92-comments-extractor.js) file).
+For each site, you also need a separate module that implements the web scraping logic and extracts comments (see [b92-comments-extractor.js](src/b92-comments-extractor.js)).
 
 ## Testing the Proxy Server
 If you have followed the [setup](#setup) procedure, then the proxy server should run at port 8080. 
@@ -90,8 +90,8 @@ The `url` query parameter is URL encoded. The value of this parameter is the URL
 There are plenty of online tools to URL encode a string. For example, [this one](https://www.urlencoder.org/).
 
 ## Web Scraping
-The B92 site has no API to access it's content. The site itself employs numerous JavScript functions to partially load sections of the site. These essentially call undocumented APIs that return HTML content ready for being presented by a browser. One such function is responsible for comments retrieval, which call the `https://www.b92.net/ajax/get_comments` API endpoint. Nevertheless, a web scraping technique must be used to extract the text from the HTML page. The [cheerio](https://cheerio.js.org/) library is used for this purpose.
-To figure out the structure of the HTML page, the _InspectElement_ browser feature was used; click on the image to watch it enlarged. The following screenshot shows the HTML structure of the comments section on the B92 site.
+The B92 site has no API to access it's content. The site itself employs numerous JavScript functions to partially load sections of the site. These essentially call undocumented APIs that return HTML content ready for being presented by a browser. One such function is responsible for comments retrieval, which call the `https://www.b92.net/ajax/get_comments` API endpoint; it requires additional request parameters (see [b92-comments-extractor.js](src/b92-comments-extractor.js)). Nevertheless, a web scraping technique must be used to extract the text from the HTML page. The [cheerio](https://cheerio.js.org/) library is used for this purpose.
+To figure out the structure of the HTML page, the _InspectElement_ browser feature was used; open the image in a separate window to watch it enlarged. The following screenshot shows the HTML structure of the comments section on the B92 site.
 To get this structure, right-click on the page where the element of interest is displayed and select _InspectElement_ (or similar) from the context menu.
 
 <kbd>![Screenshot of the HTML structure](./docs/html-structure.jpg)</kbd>
