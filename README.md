@@ -1,13 +1,3 @@
-# Table of Contents
-- [Introduction](#introduction)
-- [Usage](#usage)
-  - [Setup](#setup)
-- [Architecture](#architecture)
-  - [Testing the Proxy Server](#testing-the-proxy-server)
-  - [Web Scraping](#web-scraping)
-  - [Scaling the Application to Handle Large Number of Comments](#scaling-the-application-to-handle-large-number-of-comments)
-- [Conclusion](#conclusion)
-
 # Introduction
 This project is used purely as an educational material to teach and demonstrate in practice the following topics:
 
