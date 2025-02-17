@@ -8,7 +8,7 @@
     "openai": "^4.85.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-scripts": "^5.1.0-next.14",
+    "react-scripts": "^5.1.0-next.26",
     "text-encoding": "^0.7.0",
     "node-fetch": "^3.3.2"
   },
