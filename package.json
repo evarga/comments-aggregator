@@ -2,7 +2,7 @@
   "name": "comments-aggregator",
   "version": "1.0.0",
   "dependencies": {
-    "cheerio": "^1.0.0",
+    "cheerio": "^1.1.0",
     "concurrently": "^9.1.2",
     "cors": "^2.8.5",
     "openai": "^5.0.2",
